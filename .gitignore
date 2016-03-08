@@ -1,5 +1,5 @@
-bower_components
-cordova
-node_modules
-dist
+bower_components/
+cordova/
+node_modules/
+dist/
 .tmp
