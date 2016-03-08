@@ -248,22 +248,22 @@ gulp.task('default', ['clean'], function (cb) {
     // Note: add , 'precache' , after 'vulcanize', if your are going to use Service Worker
 });
 
-// Netoyage de Cordova
+// Clear the cordova project
 gulp.task('cordova_clean', shell.task('rm -Rf cordova'));
 
-// Création de Cordova
+// create cordova project
 gulp.task('cordova_create', shell.task('cordova create cordova com.winegame.cordova "Winegame" --copy-from=dist'));
 
-// Ajout de la plate-forme IOS pour Cordova
+// Add the ios platform to the cordova project
 gulp.task('cordova_platform_ios', shell.task('cordova platform add ios', {cwd: 'cordova'}));
 
-// Ajout de la plate-forme android pour Cordova
+// Add the android platform to the cordova project
 gulp.task('cordova_platform_android', shell.task('cordova platform add android', {cwd: 'cordova'}));
 
-// Prepare Cordova
+// Prepare cordova
 gulp.task('cordova_prepare', shell.task('cordova prepare', {cwd: 'cordova'}));
 
-// Génère la partie Cordova
+// Initiate the cordova project
 gulp.task('cordova', ['default'], function (cb) {
   runSequence(
     'cordova_clean',
@@ -274,26 +274,26 @@ gulp.task('cordova', ['default'], function (cb) {
     cb);
 });
 
-// Nettoie le repertoire www de cordova
+// Remove the www directory in the cordova project
 gulp.task('cordova:build:clean_www', shell.task('rm -Rf cordova/www/*'));
 
-// Copie le dossier dist dans le www de cordova
+// Refresh the www directory in the cordova project
 gulp.task('cordova:build:refresh', ['cordova:build:clean_www'], function(){
   var app = gulp.src([
     'dist/**'
   ]).pipe(gulp.dest('cordova/www'));
 });
 
-// Génere le build cordova pour android
+// Build the app for android
 gulp.task('cordova:build:android', ['cordova:build:refresh'], shell.task('cordova build android', {cwd: 'cordova'}));
 
-// Génere le build cordova pour ios
+// Build the app for ios
 gulp.task('cordova:build:ios', ['cordova:build:refresh'], shell.task('cordova build ios', {cwd: 'cordova'}));
 
-// Émule l'application pour android
+// Emulate the app on android
 gulp.task('cordova:emulate:android', ['cordova:build:android'], shell.task('cordova emulate android', {cwd: 'cordova'}));
 
-// Émule l'application pour ios
+// Emulate the app on ios
 gulp.task('cordova:emulate:ios', ['cordova:build:ios'], shell.task('cordova emulate android', {cwd: 'cordova'}));
 
 // Load tasks for web-component-tester
